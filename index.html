@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alcoholdle</title>
+  <link href="./output.css" rel="stylesheet">
+</head>
+
+<body class="bg-blue-950 text-white text-center">
+  <br><br>
+  <h1 class="text-4xl font-bold underline">
+    Welcome to Alcoholdle!
+  </h1><br>
+  <p>Wordle inspired game. Start by guessing a random alcohol.</p>
+  <br><br><br><br><br>
+  
+  <!-- hent datasæt -->
+  <script src=".data/alcohols.json"></script>
+
+  <!-- søgefelt -->
+  <input 
+  type="text" 
+  autocomplete="off"
+  id="searchBox" 
+  placeholder="Search for alcohol..." 
+  class="p-2 rounded-lg border border-gray-600 bg-gray-800 focus:outline-none focus:border-blue-500">
+  <!-- knap/submit -->
+  <button onclick="compare()" class="cursor-pointer">Guess</button> 
+  <script src="./app.js"></script>
+
+</body>
+</html>
