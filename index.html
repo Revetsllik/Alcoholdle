@@ -6,7 +6,31 @@
   <title>Alcoholdle</title>
   <link href="./output.css" rel="stylesheet">
 </head>
-
+<style>
+  .boks {
+    background-color: rgb(0, 6, 55);
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px;
+    width: 100px;
+    height: 100px;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.2);
+  }
+    .answerBox {
+    background-color: #1f88ff;
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px;
+    width: 100px;
+    height: 100px;
+    display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.2);
+  }
+</style>
 <body class="bg-blue-950 text-white text-center">
   <br><br>
   <h1 class="text-4xl font-bold underline">
@@ -14,9 +38,6 @@
   </h1><br>
   <p>Wordle inspired game. Start by guessing a random alcohol.</p>
   <br><br><br><br><br>
-  
-  <!-- hent datasæt -->
-  <script src=".data/alcohols.json"></script>
 
   <!-- søgefelt -->
   <input 
@@ -25,9 +46,25 @@
   id="searchBox" 
   placeholder="Search for alcohol..." 
   class="p-2 rounded-lg border border-gray-600 bg-gray-800 focus:outline-none focus:border-blue-500">
-  <!-- knap/submit -->
+  <!-- knap/submit --> <!-- -->
   <button onclick="compare()" class="cursor-pointer">Guess</button> 
   <script src="./app.js"></script>
 
+    <!--Boxes-->
+    <div id="infoBox">
+      <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+      <div id = "number1" class="boks">Name</div> <div id = "number2" class="boks">Type</div> <div id = "number3" class="boks">Country</div>
+      <div id = "number4" class="boks">Vol.%</div> <div id = "number5" class="boks">Liquid Color</div> <div id = "number6" class="boks">Price</div>
+      <div id = "number7" class="boks">Served</div> <div id = "number8" class="boks">Bottle Color</div> <div id = "number9" class="boks">Vibe</div>
+    </div>
+    </div>
+<!-- style="display: none; I BOXSKABELON -->
+  <div id="gameSpace">
+    <div id="boxSkabelon" style="display: none;">
+      <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+      <div class="answerBox">Name</div> <div class="answerBox">Type</div> <div class="answerBox">Country</div>
+      <div class="answerBox">Vol.%</div> <div class="answerBox">Liquid Color</div> <div class="answerBox">Price</div>
+      <div class="answerBox">Served</div> <div class="answerBox">Bottle Color</div> <div class="answerBox">Vibe</div>
+    </div></div></div>
 </body>
 </html>
