@@ -4,6 +4,7 @@
     let i = 0;
     let fields = ["Name", "Type", "Country/Continent", "Vol.%", 
             "Liquid Color", "Price", "Served", "Bottle Color", "Vibe"]
+    let globalFilter;
 
     fetch('./alcohols.json')
     .then(response => response.json())
@@ -21,59 +22,83 @@ function logCheckIfWrongInData(match)
     }
 }
 
+
 function addGuessRow(match){
+    //define correct to lowercase
     let correct = alcoholData.find(alcohol => alcohol.Name.toLowerCase() === dailyAlcohol);
+    //space where blocks will spawn
     let gameSpace = document.getElementById("gameSpace");
     let newRow = document.createElement("div");
-    newRow.style.display = "flex";
-    newRow.style.justifyContent = "center";
-    newRow.style.flexWrap = "wrap";
+
+    //style of new rows
+    newRow.classList.add("newRow");
+
+    //generate fields
     for(let i = 0; i < fields.length; i++){
         let newBox = document.createElement("div");
         newBox.classList.add("answerBox");
+        
         let guessedValue = match[fields[i]];
         let correctValue = correct[fields[i]];
         let displayValue = guessedValue;
+
         if (Array.isArray(guessedValue)) displayValue = guessedValue.join(', ');
+        if (i===0){displayValue = capitalize(displayValue)}
         newBox.textContent = displayValue;
         
+        //define exact and partial match
         let isExactMatch = JSON.stringify(guessedValue) === JSON.stringify(correctValue);
         let isPartialMatch = false;
         
-        if(Array.isArray(guessedValue) && Array.isArray(correctValue)){
+        //check for partial match
+        if(Array.isArray(guessedValue) && Array.isArray(correctValue))
+        {
             isPartialMatch = guessedValue.some(val => correctValue.includes(val));
-        } else if(Array.isArray(correctValue)){
+        } 
+        else if(Array.isArray(correctValue))
+        {
             isPartialMatch = correctValue.includes(guessedValue);
         }
         
-        if(isExactMatch){
-            newBox.style.backgroundColor = "green";
-        } else if(isPartialMatch){
-            newBox.style.backgroundColor = "orange";
-        } else {
-            newBox.style.backgroundColor = "red";
-        }
+        //determine color
+        if(isExactMatch === true)         {newBox.style.backgroundColor = "green";} 
+        else if(isPartialMatch === true)  {newBox.style.backgroundColor = "orange";} 
+        else                            {newBox.style.backgroundColor = "red";}
+
         /*if(i = 4 && guessedValue[4] > dailyAlcohol[4]) {
             newBox.style.image
         }*/
         newRow.appendChild(newBox);
     }
-    gameSpace.appendChild(newRow);
+    i++;
+    if (i === 1){
+        gameSpace.appendChild(newRow);
+    }
+    else {
+        gameSpace.insertBefore(newRow, gameSpace.firstChild);
+    }
 }
 //compare om playerInput === dailyAlcohol
 function compare()
 {
     let playerInput = document.getElementById("searchBox").value.toLowerCase();
-    let match = alcoholData.find(alcohol => alcohol.Name === playerInput)
+    let match = alcoholData.find(alcohol => normalizeString(alcohol.Name) === normalizeString(playerInput))
     logCheckIfWrongInData(match);
+    
+    if (!match && globalFilter.length === 1) {
+        match = globalFilter[0];
+    }
 
-    if (playerInput === dailyAlcohol) {
+    if (normalizeString(playerInput) === normalizeString(dailyAlcohol)) {
         console.log("You guessed it!")
         addGuessRow(match);
+        document.getElementById("searchBox").value = "";
+        document.getElementById("suggestions").innerHTML = "";
     }
-    if (playerInput !== dailyAlcohol && match) {
+    if (normalizeString(playerInput) !== normalizeString(dailyAlcohol) && match) {
         console.log("You guessed wrong..")
         document.getElementById("searchBox").value = "";
+        document.getElementById("suggestions").innerHTML = "";
         addGuessRow(match);
     }
      
@@ -84,6 +109,48 @@ document.getElementById("searchBox").addEventListener("keydown", function(event)
     if (event.key === "Enter") {
         compare();
     }
+    else {
+        let currentInput = document.getElementById("searchBox").value.toLowerCase();
+        let filtered = alcoholData.filter(alcohol => alcohol.Name.includes(currentInput));
+    }
+});
+//Searchbar
+document.getElementById("searchBox").addEventListener("input", function(event) {
+    if(document.getElementById("searchBox").value !== "")
+    {
+        let currentInput = document.getElementById("searchBox").value.toLowerCase();
+
+        let filtered = [];
+        for (let i = 0; i < alcoholData.length; i++) {
+            let nameWords = normalizeString(alcoholData[i].Name).split(" ");
+            let inputNormalized = normalizeString(currentInput);
+            let matches = nameWords.some(word => word.startsWith(inputNormalized));
+            if (matches) {
+                filtered.push(alcoholData[i]);
+            }
+        }
+        globalFilter = filtered;
+
+        document.getElementById("suggestions").innerHTML = "";
+
+        for (let i = 0; i < filtered.length; i++) {
+        document.getElementById("suggestions").innerHTML += `<div style="cursor: pointer; margin: 10px; "onclick="selectSuggestion('${filtered[i].Name}')">${filtered[i].Name}</div>`;
+        }        
+    }
+    if(document.getElementById("searchBox").value === ""){document.getElementById("suggestions").innerHTML = "";}
 });
 
-console.log("Program started.")
+//håndter special characters
+function normalizeString(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+//stort bogstav funktion
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function selectSuggestion(name) {
+    document.getElementById("searchBox").value = name;
+    compare();
+}
+console.log("Program started.");
