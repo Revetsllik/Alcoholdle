@@ -53,6 +53,9 @@ function addGuessRow(match){
         } else {
             newBox.style.backgroundColor = "red";
         }
+        /*if(i = 4 && guessedValue[4] > dailyAlcohol[4]) {
+            newBox.style.image
+        }*/
         newRow.appendChild(newBox);
     }
     gameSpace.appendChild(newRow);
