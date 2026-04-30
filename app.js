@@ -1,6 +1,6 @@
 'use strict'
     let alcoholData = [];
-    let dailyAlcohol = "fireball";
+    let dailyAlcohol = "smirnoff vodka";
     let i = 0;
     let fields = ["Name", "Type", "Country/Continent", "Vol.%", 
             "Liquid Color", "Price", "Served", "Bottle Color", "Vibe"]
@@ -44,8 +44,8 @@ function addGuessRow(match){
 
         if (Array.isArray(guessedValue)) displayValue = guessedValue.join(', ');
         if (i===0){displayValue = capitalize(displayValue)}
-        newBox.textContent = displayValue;
-        
+        newBox.textContent = displayValue; 
+        newBox.id = "jegKanGøresBlå"; 
         //define exact and partial match
         let isExactMatch = JSON.stringify(guessedValue) === JSON.stringify(correctValue);
         let isPartialMatch = false;
@@ -60,9 +60,29 @@ function addGuessRow(match){
             isPartialMatch = correctValue.includes(guessedValue);
         }
         
-        //determine color
-        if(isExactMatch === true)         {newBox.style.backgroundColor = "green";} 
-        else if(isPartialMatch === true)  {newBox.style.backgroundColor = "orange";} 
+        //determine color and arrows
+        //hvis alkoholprocent felt & du har gættet for lavt:
+        if(i===3 && correctValue > guessedValue)                       
+        {   
+            newBox.style.backgroundColor = "blue"
+            console.log("For lavt")
+            let arrowUp = document.createElement("img");
+            arrowUp.src = "./upArrow.png";
+            arrowUp.alt = "higher";
+            newBox.appendChild(arrowUp);
+        }
+        else if(i===3 && correctValue < guessedValue)                       
+        {   
+            newBox.style.backgroundColor = "blue"
+            console.log("For højt")
+            let arrowDown = document.createElement("img");
+            arrowDown.src = "./downArrow.png";
+            arrowDown.alt = "lower";
+            newBox.appendChild(arrowDown);
+        }
+        //hvis alkoholprocent felt & du har gættet for hæjt:
+        else if(isExactMatch === true)  {newBox.style.backgroundColor = "green";} 
+        else if(isPartialMatch === true){newBox.style.backgroundColor = "orange";} 
         else                            {newBox.style.backgroundColor = "red";}
 
         /*if(i = 4 && guessedValue[4] > dailyAlcohol[4]) {

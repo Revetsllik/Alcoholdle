@@ -13,10 +13,10 @@
         "Type": "Whiskey",
         "Country/Continent": ["Canada", "North America"],
         "Vol.%": 33,
-        "Liquid Color": ["Amber", "Yellow"],
+        "Liquid Color": ["Brown","Yellow"],
         "Price": "Mid-range",
         "Served": ["Shot", "Mixed","By Itself"],
-        "Bottle Color": ["Transparent"],
+        "Bottle Color": ["Transparent", "Yellow"],
         "Vibe": ["Frat Party", "Bar"]},
 
     {"Name": "baileys",
