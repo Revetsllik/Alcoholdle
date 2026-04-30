@@ -1,6 +1,6 @@
 'use strict'
     let alcoholData = [];
-    let dailyAlcohol = "smirnoff vodka";
+    let dailyAlcohol = "captain morgan";
     let i = 0;
     let fields = ["Name", "Type", "Country/Continent", "Vol.%", 
             "Liquid Color", "Price", "Served", "Bottle Color", "Vibe"]
