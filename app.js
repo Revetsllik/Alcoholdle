@@ -1,6 +1,6 @@
 'use strict'
     let alcoholData = [];
-    let dailyAlcohol = "captain morgan";
+    let dailyAlcohol = "UwU";
     let i = 0;
     let fields = ["Name", "Type", "Country/Continent", "Vol.%", 
             "Liquid Color", "Price", "Served", "Bottle Color", "Vibe"]
@@ -10,7 +10,7 @@
     .then(response => response.json())
     .then(data => {
         alcoholData = data;
-        console.log("Data loaded!", alcoholData); // verify it loaded
+        dailyAlcohol = getDailyAlcohol();
     });
 function logCheckIfWrongInData(match)
 {
@@ -172,5 +172,11 @@ function capitalize(str) {
 function selectSuggestion(name) {
     document.getElementById("searchBox").value = name;
     compare();
+}
+function getDailyAlcohol() {
+    const today = new Date();
+    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+    const index = (dayOfYear + today.getFullYear()) % alcoholData.length;
+    return alcoholData[index].Name;
 }
 console.log("Program started.");

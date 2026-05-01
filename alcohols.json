@@ -69,16 +69,6 @@
         "Bottle Color": ["Black"],
         "Vibe": ["Fancy", "Restaurant"]},
 
-    {"Name": "bacardi",
-        "Type": "Rum",
-        "Country/Continent": ["Cuba", "North America"],
-        "Vol.%": 40,
-        "Liquid Color": ["Transparent"],
-        "Price": "Mid-range",
-        "Served": ["Mixed"],
-        "Bottle Color": ["Transparent", "White"],
-        "Vibe": ["Beach", "Club"]},
-
     {"Name": "captain morgan",
         "Type": "Rum",
         "Country/Continent": ["Jamaica", "North America"],
@@ -88,6 +78,16 @@
         "Served": ["By Itself", "Mixed"],
         "Bottle Color": ["Transparent", "Gold"],
         "Vibe": ["Frat Party", "Bar"]},
+
+    {"Name": "bacardi",
+        "Type": "Rum",
+        "Country/Continent": ["Cuba", "North America"],
+        "Vol.%": 40,
+        "Liquid Color": ["Transparent"],
+        "Price": "Mid-range",
+        "Served": ["Mixed"],
+        "Bottle Color": ["Transparent", "White"],
+        "Vibe": ["Beach", "Club"]},
 
     {"Name": "absolut vodka",
         "Type": "Vodka",
