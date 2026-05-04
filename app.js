@@ -65,7 +65,6 @@ function addGuessRow(match){
         if(i===3 && correctValue > guessedValue)                       
         {   
             newBox.style.backgroundColor = "blue"
-            console.log("For lavt")
             let arrowUp = document.createElement("img");
             arrowUp.src = "./upArrow.png";
             arrowUp.alt = "higher";
@@ -74,11 +73,26 @@ function addGuessRow(match){
         else if(i===3 && correctValue < guessedValue)                       
         {   
             newBox.style.backgroundColor = "blue"
-            console.log("For højt")
             let arrowDown = document.createElement("img");
             arrowDown.src = "./downArrow.png";
             arrowDown.alt = "lower";
             newBox.appendChild(arrowDown);
+        }
+        else if(i===8 && isExactMatch){
+            newBox.style.backgroundColor = "green";
+        }
+        else if(i===8 && isPartialMatch){
+            //insert checkmark at correct elements of array
+            newBox.style.backgroundColor = "orange";
+            newBox.innerHTML = ""; // clear textContent set earlier
+            for(let v = 0; v < guessedValue.length; v++){
+                if(correctValue.includes(guessedValue[v])){
+                    newBox.innerHTML += `&#9989; ${guessedValue[v]}<br>`;
+                } 
+                else {
+                    newBox.innerHTML += `${guessedValue[v]}<br>`;
+                }
+            }
         }
         //hvis alkoholprocent felt & du har gættet for hæjt:
         else if(isExactMatch === true)  {newBox.style.backgroundColor = "green";} 
